@@ -7,11 +7,11 @@ import userEvent from '@testing-library/user-event'
 import Login from '../../components/login'
 import faker from 'faker'
 
-const buildLoginForm = () => {
+const buildLoginForm = overrides => {
   const username = faker.internet.userName()
   const password = faker.internet.password()
 
-  return {username, password}
+  return {username, password, ...overrides}
 }
 
 test('submitting the form calls onSubmit with username and password', async () => {
