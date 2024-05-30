@@ -23,7 +23,7 @@ test('counter increments and decrements when the buttons are clicked', () => {
   act(() => root.render(<Counter />))
   // 🐨 get a reference to the increment and decrement buttons:
   //   💰 div.querySelectorAll('button')
-  const buttons = div.querySelectorAll('button')
+  const [decrementButton, incrementButton] = div.querySelectorAll('button')
   // 🐨 get a reference to the message div:
   //   💰 div.firstChild.querySelector('div')
   const message = div.firstChild.querySelector('div')
@@ -31,11 +31,11 @@ test('counter increments and decrements when the buttons are clicked', () => {
   // 🐨 expect the message.textContent toBe 'Current count: 0'
   expect(message.textContent).toBe('Current count: 0')
   // 🐨 click the increment button (💰 act(() => increment.click()))
-  act(() => buttons[1].click())
+  act(() => incrementButton.click())
   // 🐨 assert the message.textContent
   expect(message.textContent).toBe('Current count: 1')
   // 🐨 click the decrement button (💰 act(() => decrement.click()))
-  act(() => buttons[0].click())
+  act(() => decrementButton.click())
   // 🐨 assert the message.textContent
   expect(message.textContent).toBe('Current count: 0')
   //
