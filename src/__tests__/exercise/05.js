@@ -64,5 +64,12 @@ test(`logging in with missing credentials fails correctly`, async () => {
 
   await waitForElementToBeRemoved(() => screen.getByLabelText('loading...'))
 
-  expect(screen.getByRole('alert')).toHaveTextContent('username required')
+  expect(screen.getByRole('alert')).toMatchInlineSnapshot(`
+    <div
+      role="alert"
+      style="color: red;"
+    >
+      username required
+    </div>
+  `)
 })
