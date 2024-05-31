@@ -73,3 +73,26 @@ test(`logging in with missing credentials fails correctly`, async () => {
     </div>
   `)
 })
+
+test(`server sends a status code 500`, async () => {
+  server.use(
+    rest.post(
+      'https://auth-provider.example.com/api/login',
+      async (req, res, ctx) => {
+        return res(
+          ctx.status(500),
+          ctx.json({message: 'Internal Server Error: 500'}),
+        )
+      },
+    ),
+  )
+  render(<Login />)
+
+  await userEvent.click(screen.getByRole('button', {name: /submit/i}))
+
+  await waitForElementToBeRemoved(() => screen.getByLabelText('loading...'))
+
+  expect(screen.getByRole('alert')).toHaveTextContent(
+    'Internal Server Error: 500',
+  )
+})
