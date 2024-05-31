@@ -10,6 +10,7 @@ import {build, fake} from '@jackfranklin/test-data-bot'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 import Login from '../../components/login-submission'
+import {handlers} from 'test/server-handlers'
 
 const buildLoginForm = build({
   fields: {
@@ -24,11 +25,7 @@ const buildLoginForm = build({
 //   'https://auth-provider.example.com/api/login',
 //   async (req, res, ctx) => {},
 // )
-const server = setupServer(
-  rest.post('https://auth-provider.example.com/api/login', (req, res, ctx) => {
-    return res(ctx.json({username: 'Arnie'}))
-  }),
-)
+const server = setupServer(...handlers)
 // you'll want to respond with an JSON object that has the username.
 // 📜 https://mswjs.io/
 
@@ -54,5 +51,5 @@ test(`logging in displays the user's username`, async () => {
   // once the login is successful, then the loading spinner disappears and
   // we render the username.
   // 🐨 assert that the username is on the screen
-  expect(screen.getByText('Arnie')).toBeInTheDocument()
+  expect(screen.getByText(username)).toBeInTheDocument()
 })
